@@ -1,6 +1,6 @@
 import Link from "next/link";
 import prisma from "@/db";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
 const HEADER: string = "Add New To do List";
 
@@ -8,7 +8,7 @@ const createNewTask = async (data: FormData) => {
   "use server";
   const title = data.get("title")?.valueOf().toString();
   await prisma.todo.create({ data: { title: title ?? "", complete: false } });
-  redirect("/")
+  redirect("/");
 };
 
 export default function Page() {

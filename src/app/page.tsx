@@ -10,6 +10,11 @@ const getTodos = () => {
   return prisma.todo.findMany();
 };
 
+const changeTodo = async (id: string, complete: boolean) => {
+  "use server";
+  await prisma.todo.update({ where: { id }, data: { complete: complete } });
+};
+
 export default async function Home() {
   const toDos: TodoType[] = await getTodos();
 
@@ -25,7 +30,7 @@ export default async function Home() {
       </div>
       <ul>
         {toDos.map((data) => {
-          return <TodoItem key={data.id} data={data} />;
+          return <TodoItem key={data.id} data={data} onCheck={changeTodo} />;
         })}
       </ul>
     </div>
